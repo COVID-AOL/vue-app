@@ -1,15 +1,20 @@
 <template>
-  <hello-world />
+  <v-container>
+    <resource-types></resource-types>
+    <beds-list></beds-list>
+  </v-container>
 </template>
 
 <script>
-  import HelloWorld from '../components/HelloWorld'
+import ResourceTypes from "@/components/ResourceTypes";
+import BedsList from "@/components/Beds/BedList";
 
-  export default {
-    name: 'Home',
+export default {
+  name: "Home",
 
-    components: {
-      HelloWorld,
-    },
-  }
+  components: {
+    ResourceTypes,
+    BedsList,
+  },
+};
 </script>
