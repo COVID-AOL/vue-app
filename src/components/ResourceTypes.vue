@@ -1,6 +1,6 @@
 <template>
   <v-card outlined class="mx-auto my-12">
-    <v-card-title class="headline pa-5">RESOURCES</v-card-title>
+    <v-card-title class="headline pa-5">RESOURCES AVAILABLE</v-card-title>
     <template v-for="[title, icon] in resources">
       <v-btn :key="title" class="ma-5" color="red" dark
         >{{ title }}

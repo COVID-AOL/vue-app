@@ -13,9 +13,13 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "BedsList",
+  async created() {
+    this.$store.dispatch("bed/find");
+    console.log(process.env.VUE_APP_AXIOS_BASE_URL);
+  },
   computed: {
     ...mapGetters({
-      bedsList: "beds/list",
+      bedsList: "bed/list",
     }),
   },
   components: {

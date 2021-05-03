@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // Various Modules
-import beds from '@/store/beds'
+import bed from '@/store/bed'
+import searchBar from '@/store/searchBar'
 
 Vue.use(Vuex)
 
@@ -14,6 +15,6 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
-    beds
+    bed, searchBar
   }
 })

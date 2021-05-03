@@ -10,7 +10,7 @@ import ResourceTypes from "@/components/ResourceTypes";
 import BedsList from "@/components/Beds/BedList";
 
 export default {
-  name: "Home",
+  name: "HomeView",
 
   components: {
     ResourceTypes,
