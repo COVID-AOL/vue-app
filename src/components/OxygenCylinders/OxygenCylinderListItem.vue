@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card color="red lighten-5 mx-auto" max-width="1100">
+    <v-card color="blue lighten-5 mx-auto" max-width="1100">
       <v-card-text>
         <v-row>
           <v-col class="pt-5">
@@ -29,7 +29,7 @@
         </v-row>
       </v-card-text>
 
-      <v-list class="pa-5 pt-0" three-line color="red--text">
+      <v-list class="pa-5 pt-0" three-line color="blue--text">
         <!-- Hospital -->
         <v-list-item-content>
           <span class="text-uppercase">{{ oxygenCylinder.hospitalName }}</span>
@@ -37,7 +37,7 @@
 
         <!-- Description -->
         <v-card-text v-if="oxygenCylinder.description !== undefined"
-          ><span color="red--text" class="text-h5">{{
+          ><span color="blue--text" class="text-h5">{{
             oxygenCylinder.description
           }}</span>
         </v-card-text>
