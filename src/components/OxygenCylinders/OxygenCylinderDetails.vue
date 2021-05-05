@@ -1,5 +1,5 @@
 <template>
-  <v-card class="my-3" max-width="600" color="red lighten-5">
+  <v-card class="my-3" max-width="600" color="blue lighten-5">
     <v-card-title class="text-uppercase">
       <v-row justify="space-between">
         <v-col class="text-left">Oxygen Cylinder</v-col>
@@ -40,7 +40,7 @@
             <v-icon v-if="oxygenCylinderDetails.verified === true" color="green"
               >mdi-shield-check</v-icon
             >
-            <v-icon v-else color="red">mdi-do-not-disturb</v-icon>
+            <v-icon v-else color="blue">mdi-do-not-disturb</v-icon>
           </v-col>
         </v-row>
       </div></template
