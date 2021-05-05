@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar color="grey darken-3" dark fixed :prominent="prominent">
+    <v-app-bar color="grey darken-3" dark fixed>
       <div class="d-flex align-center cursor-pointer">
         <v-img
           alt="Vuetify Logo"
@@ -39,19 +39,22 @@ export default {
   components: {
     Search,
   },
-  computed: {
-    ...mapGetters({
-      prominent: "searchBar/display",
-    }),
+  watch: {
+    $route(to, from) {
+      this.$store.dispatch("searchBar/changeSearchText", "");
+    },
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .cursor-pointer {
   cursor: pointer;
 }
 .spacer {
   height: 60px;
+}
+html {
+  font-family: "Roboto", sans-serif;
 }
 </style>

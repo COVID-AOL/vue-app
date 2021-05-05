@@ -1,19 +1,20 @@
 <template>
   <v-container>
     <resource-types></resource-types>
+    <oxygen-cylinder-list></oxygen-cylinder-list>
   </v-container>
 </template>
 
 <script>
 import ResourceTypes from "@/components/ResourceTypes";
-import BedsList from "@/components/Beds/BedList";
+import OxygenCylinderList from "@/components/OxygenCylinders/OxygenCylinderList";
 
 export default {
-  name: "HomeView",
+  name: "OxygenCylindersView",
 
   components: {
     ResourceTypes,
-    BedsList,
+    OxygenCylinderList,
   },
 };
 </script>

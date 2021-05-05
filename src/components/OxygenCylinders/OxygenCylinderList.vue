@@ -1,8 +1,11 @@
 <template>
   <div>
     <template v-if="bedsList.length > 0">
-      <template v-for="(bed, index) in bedsList">
-        <bed-list-item :key="'list-item' + index" :bed="bed"></bed-list-item>
+      <template v-for="(oxygenCylinder, index) in bedsList">
+        <oxygen-cylinder-list-item
+          :key="'list-item' + index"
+          :oxygenCylinder="oxygenCylinder"
+        ></oxygen-cylinder-list-item>
         <br :key="'br' + index" />
       </template>
     </template>
@@ -20,23 +23,23 @@
 </template>
 
 <script>
-import BedListItem from "@/components/Beds/BedListItem";
+import OxygenCylinderListItem from "@/components/OxygenCylinders/OxygenCylinderListItem";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "BedsList",
+  name: "OxygenCylindersList",
   async created() {
-    if (this.searchText === "") this.$store.dispatch("bed/find");
-    else this.$store.dispatch("bed/findByCity", this.searchText);
+    if (this.searchText === "") this.$store.dispatch("oxygenCylinder/find");
+    else this.$store.dispatch("oxygenCylinder/findByCity", this.searchText);
   },
   computed: {
     ...mapGetters({
-      bedsList: "bed/list",
+      bedsList: "oxygenCylinder/list",
       searchText: "searchBar/searchText",
     }),
   },
   components: {
-    BedListItem,
+    OxygenCylinderListItem,
   },
 };
 </script>

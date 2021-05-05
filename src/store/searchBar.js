@@ -1,27 +1,20 @@
 const state = {
-  display: false,
+  searchText: ''
 }
 
 const mutations = {
-  showSearchBarSuccess(state) {
-    state.display = true
+  changeSearchTextSuccess(state, newText) {
+    state.searchText = newText
   },
-  hideSearchBarSuccess(state) {
-    state.display = false
-  }
 }
 
 const actions = {
-  showSearchBar({ commit }) {
-    commit('showSearchBarSuccess')
-  },
-  hideSearchBar({ commit }) {
-    commit('hideSearchBarSuccess')
+  changeSearchText({ commit }, newText) {
+    commit('changeSearchTextSuccess', newText)
   }
 }
 
 const getters = {
-  display: (state) => state.display,
   searchText: (state) => state.searchText
 }
 

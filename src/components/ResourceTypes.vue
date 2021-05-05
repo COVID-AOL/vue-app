@@ -1,13 +1,21 @@
 <template>
-  <v-card outlined class="mx-auto my-12">
-    <v-card-title class="headline pa-5">RESOURCES AVAILABLE</v-card-title>
-    <template v-for="[title, icon] in resources">
-      <v-btn :key="title" class="ma-5" color="red" dark
-        >{{ title }}
-        <v-icon dark right>{{ icon }}</v-icon>
-      </v-btn>
-    </template>
-  </v-card>
+  <div class="my-12">
+    <div class="text-h5 mb-3">RESOURCES AVAILABLE</div>
+    <v-card outlined class="mx-auto">
+      <!-- <v-card-title class="headline pa-5"></v-card-title> -->
+      <template v-for="[title, icon, color, link] in resources">
+        <v-btn
+          @click="$router.push({ path: link })"
+          :key="title"
+          class="ma-5"
+          :color="color"
+          dark
+          >{{ title }}
+          <v-icon dark right>{{ icon }}</v-icon>
+        </v-btn>
+      </template>
+    </v-card>
+  </div>
 </template>
 
 <script>
@@ -19,6 +27,14 @@ export default {
         [
           "Hospitals Beds", // title
           "mdi-bed", // icon
+          "red", // color theme
+          "/hospital-beds", // page link
+        ],
+        [
+          "Oxygen Cylinders", // title
+          "mdi-gas-cylinder", // icon
+          "blue", // color theme
+          "/oxygen-cylinders", // page link
         ],
       ],
     };

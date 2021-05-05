@@ -2,29 +2,29 @@
   <v-card class="my-3" max-width="600" color="red lighten-5">
     <v-card-title class="text-uppercase">
       <v-row justify="space-between">
-        <v-col class="text-left">Hospital Bed</v-col>
-        <v-col class="text-right">{{ bedDetails.city }}</v-col>
+        <v-col class="text-left">Oxygen Cylinder</v-col>
+        <v-col class="text-right">{{ oxygenCylinderDetails.city }}</v-col>
       </v-row>
     </v-card-title>
     <v-subheader>
       <v-row justify="space-between">
         <v-col class="text-left">Updated</v-col>
         <v-col class="text-right">
-          {{ $moment(bedDetails.updatedAt).fromNow() }}
+          {{ $moment(oxygenCylinderDetails.updatedAt).fromNow() }}
         </v-col>
       </v-row>
     </v-subheader>
     <v-divider></v-divider>
     <br />
 
-    <!-- Beds Available -->
-    <template v-if="bedDetails.bedCount !== undefined">
+    <!-- OxygenCylinders Available -->
+    <template v-if="oxygenCylinderDetails.oxygenCylinderCount !== undefined">
       <div class="text-body-2 px-4 grey--text text--darken-2">
         <v-row justify="space-between">
-          <v-col class="text-left">Beds Available</v-col>
+          <v-col class="text-left">OxygenCylinders Available</v-col>
           <v-col class="text-right">
             <span class="text-h4 font-weight-light">{{
-              bedDetails.bedCount
+              oxygenCylinderDetails.oxygenCylinderCount
             }}</span>
           </v-col>
         </v-row>
@@ -32,12 +32,12 @@
     >
 
     <!-- Verified -->
-    <template v-if="bedDetails.verified !== undefined">
+    <template v-if="oxygenCylinderDetails.verified !== undefined">
       <div class="text-body-2 px-4 grey--text text--darken-2">
         <v-row justify="space-between">
           <v-col class="text-left">Verified</v-col>
           <v-col class="text-right">
-            <v-icon v-if="bedDetails.verified === true" color="green"
+            <v-icon v-if="oxygenCylinderDetails.verified === true" color="green"
               >mdi-shield-check</v-icon
             >
             <v-icon v-else color="red">mdi-do-not-disturb</v-icon>
@@ -47,25 +47,25 @@
     >
 
     <!-- Hospital Name -->
-    <template v-if="bedDetails.hospitalName !== undefined">
+    <template v-if="oxygenCylinderDetails.hospitalName !== undefined">
       <div class="text-body-2 px-4 grey--text text--darken-2">
         <v-row justify="space-between">
           <v-col class="text-left">Hospital Name</v-col>
           <v-col class="text-right">
-            {{ bedDetails.hospitalName }}
+            {{ oxygenCylinderDetails.hospitalName }}
           </v-col>
         </v-row>
       </div></template
     >
 
     <!-- Contact -->
-    <template v-if="bedDetails.contact !== undefined">
+    <template v-if="oxygenCylinderDetails.contact !== undefined">
       <div class="text-body-2 px-4 grey--text text--darken-2">
         <v-row justify="space-between">
           <v-col class="text-left">Contact</v-col>
           <v-col class="text-right"
-            ><a :href="`tel:${bedDetails.contact}`">{{
-              bedDetails.contact
+            ><a :href="`tel:${oxygenCylinderDetails.contact}`">{{
+              oxygenCylinderDetails.contact
             }}</a></v-col
           >
         </v-row>
@@ -73,24 +73,26 @@
     >
 
     <!-- Address -->
-    <template v-if="bedDetails.address !== undefined">
+    <template v-if="oxygenCylinderDetails.address !== undefined">
       <div class="text-body-2 px-4 grey--text text--darken-2">
         <v-row>
           <v-col cols="3" class="text-left">Address</v-col>
           <v-col cols="9" class="text-right flex-grow-1">
-            {{ bedDetails.address }}
+            {{ oxygenCylinderDetails.address }}
           </v-col>
         </v-row>
       </div></template
     >
 
     <!-- Email Address -->
-    <template v-if="bedDetails.email !== undefined">
+    <template v-if="oxygenCylinderDetails.email !== undefined">
       <div class="text-body-2 px-4 grey--text text--darken-2">
         <v-row>
           <v-col class="text-left">Email</v-col>
           <v-col class="text-right flex-grow-1">
-            <a :href="`mailto:${bedDetails.email}`">{{ bedDetails.email }}</a>
+            <a :href="`mailto:${oxygenCylinderDetails.email}`">{{
+              oxygenCylinderDetails.email
+            }}</a>
           </v-col>
         </v-row>
       </div></template
@@ -100,9 +102,9 @@
 
 <script>
 export default {
-  name: "BedDetails",
+  name: "OxygenCylinderDetails",
   props: {
-    bedDetails: {
+    oxygenCylinderDetails: {
       type: Object,
       validator: function (value) {
         return true;
