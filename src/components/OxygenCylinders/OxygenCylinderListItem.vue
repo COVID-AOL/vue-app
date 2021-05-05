@@ -4,7 +4,9 @@
       <v-card-text>
         <v-row>
           <v-col class="pt-5">
-            <span class="text-uppercase"> Hospital Bed | {{ bed.city }}</span>
+            <span class="text-uppercase">
+              Oxygen Cylinder | {{ oxygenCylinder.city }}</span
+            >
           </v-col>
           <v-col class="text-right">
             <v-dialog width="600" :v-model="true">
@@ -14,12 +16,14 @@
                   elevation="0"
                   v-bind="attrs"
                   v-on="on"
-                  @click="viewBed(bed.id)"
+                  @click="viewOxygenCylinder(oxygenCylinder.id)"
                   >View Details
                   <v-icon class="ml-2">mdi-file-document-outline</v-icon>
                 </v-btn></template
               >
-              <bed-details :bedDetails="bedDetails"></bed-details>
+              <oxygen-cylinder-details
+                :oxygenCylinderDetails="oxygenCylinderDetails"
+              ></oxygen-cylinder-details>
             </v-dialog>
           </v-col>
         </v-row>
@@ -28,37 +32,38 @@
       <v-list class="pa-5 pt-0" three-line color="red--text">
         <!-- Hospital -->
         <v-list-item-content>
-          <span class="text-uppercase">{{ bed.hospitalName }}</span>
+          <span class="text-uppercase">{{ oxygenCylinder.hospitalName }}</span>
         </v-list-item-content>
 
         <!-- Description -->
-        <v-card-text v-if="bed.description !== undefined"
-          ><span color="red--text" class="text-h5">{{ bed.description }}</span>
+        <v-card-text v-if="oxygenCylinder.description !== undefined"
+          ><span color="red--text" class="text-h5">{{
+            oxygenCylinder.description
+          }}</span>
         </v-card-text>
 
         <!-- Phone Number -->
-        <v-list-item-subtitle v-if="bed.contact !== undefined">
+        <v-list-item-subtitle v-if="oxygenCylinder.contact !== undefined">
           <span class="font-weight-medium mr-2">Contact:</span>
-          <a :href="`tel:+${bed.contact}`">{{ bed.contact }}</a>
-        </v-list-item-subtitle>
-
-        <!-- Number of Beds -->
-        <v-list-item-subtitle v-if="bed.bedCount !== undefined">
-          <span class="font-weight-medium mr-2">Bed Count:</span>
-          {{ bed.bedCount }}
+          <a :href="`tel:+${oxygenCylinder.contact}`">{{
+            oxygenCylinder.contact
+          }}</a>
         </v-list-item-subtitle>
 
         <!-- Address -->
-        <v-list-item-subtitle v-if="bed.address !== undefined">
+        <v-list-item-subtitle v-if="oxygenCylinder.address !== undefined">
           <span class="font-weight-medium mr-2">Address:</span>
-          {{ bed.address }}
+          {{ oxygenCylinder.address }}
         </v-list-item-subtitle>
 
         <v-divider></v-divider>
 
         <!-- Update At -->
-        <div class="text-caption black-text" v-if="bed.updatedAt !== undefined">
-          Last Updated: {{ $moment(bed.updatedAt).fromNow() }}
+        <div
+          class="text-caption black-text"
+          v-if="oxygenCylinder.updatedAt !== undefined"
+        >
+          Last Updated: {{ $moment(oxygenCylinder.updatedAt).fromNow() }}
         </div>
       </v-list>
     </v-card>
@@ -67,17 +72,17 @@
 
 <script>
 import { mapGetters } from "vuex";
-import BedDetails from "@/components/Beds/BedDetails";
+import OxygenCylinderDetails from "@/components/OxygenCylinders/OxygenCylinderDetails";
 
 export default {
-  name: "Bed",
+  name: "OxygenCylinder",
   data() {
     return {
       showModel: false,
     };
   },
   props: {
-    bed: {
+    oxygenCylinder: {
       type: Object,
       required: true,
       validator: function (value) {
@@ -87,19 +92,19 @@ export default {
     },
   },
   methods: {
-    viewBed(id) {
-      this.$store.dispatch("bed/findById", id).then(() => {
+    viewOxygenCylinder(id) {
+      this.$store.dispatch("oxygenCylinder/findById", id).then(() => {
         this.showModel = true;
       });
     },
   },
   computed: {
     ...mapGetters({
-      bedDetails: "bed/bedById",
+      oxygenCylinderDetails: "oxygenCylinder/oxygenCylinderById",
     }),
   },
   components: {
-    BedDetails,
+    OxygenCylinderDetails,
   },
 };
 </script>
