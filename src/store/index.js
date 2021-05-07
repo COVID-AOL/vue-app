@@ -10,10 +10,20 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    selectedResource: null
   },
   mutations: {
+    changeSelectedResourceSuccess(state, newResource) {
+      state.selectedResource = newResource
+    }
   },
   actions: {
+    changeSelectedResource({ commit }, newResource) {
+      commit('changeSelectedResourceSuccess', newResource)
+    }
+  },
+  getters: {
+    selectedResource: (state) => state.selectedResource
   },
   modules: {
     bed, searchBar, oxygenCylinder

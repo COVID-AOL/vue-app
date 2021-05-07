@@ -1,16 +1,20 @@
+import utils from '@/store/utils'
 import globalAction from '@/store/globalAction.js'
 
-const state = { oxygenCylinderById: null, oxygenCylinders: null }
+const state = { oxygenCylinderById: null, oxygenCylinders: null, filters: null }
 const mutations = {
   // Success
-  findByIdSuccess(state, result) {
-    state.oxygenCylinderById = result
+  findByIdSuccess(state, newOxygenCylinderById) {
+    state.oxygenCylinderById = newOxygenCylinderById
   },
-  findSuccess(state, result) {
-    state.oxygenCylinders = result
+  findSuccess(state, newOxygenCylinders) {
+    state.oxygenCylinders = newOxygenCylinders
   },
-  findByCitySuccess(state, result) {
-    state.oxygenCylinders = result
+  findByCitySuccess(state, newOxygenCylinders) {
+    state.oxygenCylinders = newOxygenCylinders
+  },
+  changeFilterSuccess(state, newFilters) {
+    state.filters = newFilters
   },
 
   // Errors
@@ -19,9 +23,12 @@ const mutations = {
   findByCityError(state, err) { }
 }
 const actions = {
+  changeFilters({ commit }, newFilters) {
+    commit('changeFilterSuccess', newFilters)
+  },
   findByCity({ commit }, city) {
     return globalAction({ commit }, 'findByCity', {
-      url: `/oxygen-cylinders/city/${city}?_sort=verified:DESC`
+      url: `/oxygen-cylinders/city/${city}?_sort=verified:DESC${utils.formatFilters(state.filters)}`
     })
   },
   findById({ commit }, id) {
@@ -32,7 +39,7 @@ const actions = {
   },
   find({ commit }) {
     return globalAction({ commit }, 'find', {
-      url: `/oxygen-cylinders?_sort=verified:DESC`,
+      url: `/oxygen-cylinders?_sort=verified:DESC${utils.formatFilters(state.filters)}`,
       method: 'GET'
     })
   }
@@ -44,6 +51,9 @@ const getters = {
   },
   oxygenCylinderById: (state) => {
     return state.oxygenCylinderById
+  },
+  filters: (state) => {
+    return state.filters
   }
 }
 

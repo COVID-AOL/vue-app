@@ -1,17 +1,16 @@
 <template>
-  <div class="my-12">
+  <div class="mt-12 mb-2">
     <div class="text-h5 mb-3">RESOURCES AVAILABLE</div>
     <v-card outlined class="mx-auto">
-      <!-- <v-card-title class="headline pa-5"></v-card-title> -->
-      <template v-for="[title, icon, color, link] in resources">
+      <template v-for="(resource, index) in resources">
         <v-btn
-          @click="$router.push({ path: link })"
-          :key="title"
+          @click="$router.push({ path: resource.link })"
+          :key="'resource' + index"
           class="ma-5"
-          :color="color"
+          :color="resource.theme"
           dark
-          >{{ title }}
-          <v-icon dark right>{{ icon }}</v-icon>
+          >{{ resource.title }}
+          <v-icon dark right>{{ resource.icon }}</v-icon>
         </v-btn>
       </template>
     </v-card>
@@ -19,25 +18,53 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "Resources",
-  data() {
-    return {
-      resources: [
-        [
-          "Hospitals Beds", // title
-          "mdi-bed", // icon
-          "red", // color theme
-          "/hospital-beds", // page link
-        ],
-        [
-          "Oxygen Cylinders", // title
-          "mdi-gas-cylinder", // icon
-          "blue", // color theme
-          "/oxygen-cylinders", // page link
-        ],
-      ],
-    };
+  computed: {
+    ...mapGetters({
+      bedFilters: "bed/filters",
+      oxygenCylinderFilters: "oxygenCylinder/filters",
+    }),
+    resources() {
+      let defaultValue = [
+        {
+          title: "Hospitals Beds",
+          icon: "mdi-bed",
+          theme: "red",
+          link: "/hospital-beds?",
+        },
+        {
+          title: "Oxygen Cylinders",
+          icon: "mdi-gas-cylinder",
+          theme: "blue",
+          link: "/oxygen-cylinders?",
+        },
+      ];
+
+      let bedFilters = this.bedFilters;
+      let oxygenCylinderFilters = this.oxygenCylinderFilters;
+
+      if (bedFilters !== {}) {
+        let query = "";
+        for (let key in bedFilters) {
+          query += "&" + key + "=" + bedFilters[key];
+        }
+
+        defaultValue[0].link += query;
+      }
+
+      if (oxygenCylinderFilters !== {}) {
+        let query = "";
+        for (let key in oxygenCylinderFilters) {
+          query += "&" + key + "=" + oxygenCylinderFilters[key];
+        }
+
+        defaultValue[1].link += query;
+      }
+
+      return defaultValue;
+    },
   },
 };
 </script>

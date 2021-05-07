@@ -30,9 +30,9 @@
       </v-card-text>
 
       <v-list class="pa-5 pt-0" three-line color="blue--text">
-        <!-- Hospital -->
+        <!-- Name -->
         <v-list-item-content>
-          <span class="text-uppercase">{{ oxygenCylinder.hospitalName }}</span>
+          <span class="text-uppercase">{{ oxygenCylinder.name }}</span>
         </v-list-item-content>
 
         <!-- Description -->
@@ -75,7 +75,7 @@ import { mapGetters } from "vuex";
 import OxygenCylinderDetails from "@/components/OxygenCylinders/OxygenCylinderDetails";
 
 export default {
-  name: "OxygenCylinder",
+  name: "OxygenCylinderListItem",
   data() {
     return {
       showModel: false,

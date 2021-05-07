@@ -30,15 +30,16 @@ export default {
     searchText() {
       return this.textInput.trim();
     },
-    selectedResource() {
-      if (this.$route.path.includes("/hospital-beds") === true) return "bed";
-    },
+    ...mapGetters({
+      selectedResource: "selectedResource",
+    }),
   },
   watch: {
     searchText(newValue, oldValue) {
       this.$store.dispatch("searchBar/changeSearchText", newValue);
 
-      if (newValue === "") this.$store.dispatch("bed/find", newValue);
+      if (newValue === "")
+        this.$store.dispatch(`${this.selectedResource}`, newValue);
       else
         this.$store.dispatch(`${this.selectedResource}/findByCity`, newValue);
     },
