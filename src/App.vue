@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar color="grey darken-3" dark fixed :prominent="prominent">
+    <v-app-bar color="grey darken-3" dark fixed>
       <div class="d-flex align-center cursor-pointer">
         <v-img
           alt="Vuetify Logo"
@@ -33,25 +33,41 @@ import Search from "@/components/Search";
 
 export default {
   name: "App",
+  created() {
+    this.$route.query;
+  },
   data: () => ({
-    //
+    queryInRoute: {},
   }),
   components: {
     Search,
   },
+  watch: {
+    $route(to, from) {
+      this.$store.dispatch("searchBar/changeSearchText", "");
+
+      if (this.$route.path.includes("/hospital-beds") === true)
+        this.$store.dispatch("changeSelectedResource", "bed");
+      else if (this.$route.path.includes("/oxygen-beds") === true)
+        this.$store.dispatch("changeSelectedResource", "oxygenCylinder");
+    },
+  },
   computed: {
     ...mapGetters({
-      prominent: "searchBar/display",
+      selectedResource: "selectedResource",
     }),
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .cursor-pointer {
   cursor: pointer;
 }
 .spacer {
-  height: 60px;
+  height: 30px;
+}
+html {
+  font-family: "Roboto", sans-serif;
 }
 </style>

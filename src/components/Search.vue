@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-text-field
-      v-model="searchText"
+      v-model="textInput"
       solo
       type="text"
       label="Search By City"
@@ -12,11 +12,13 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "Search",
   data() {
     return {
-      searchText: "",
+      textInput: "",
     };
   },
   methods: {
@@ -24,14 +26,22 @@ export default {
       this.$store.dispatch("bed/findByCity", this.searchText);
     },
   },
+  computed: {
+    searchText() {
+      return this.textInput.trim();
+    },
+    ...mapGetters({
+      selectedResource: "selectedResource",
+    }),
+  },
   watch: {
     searchText(newValue, oldValue) {
-      if (newValue === "") this.$store.dispatch("bed/find", newValue);
-      else this.$store.dispatch("bed/findByCity", newValue);
+      this.$store.dispatch("searchBar/changeSearchText", newValue);
 
-      if (this.$router.currentRoute.path !== "/") {
-        this.$router.push({ path: "/" });
-      }
+      if (newValue === "")
+        this.$store.dispatch(`${this.selectedResource}`, newValue);
+      else
+        this.$store.dispatch(`${this.selectedResource}/findByCity`, newValue);
     },
   },
 };

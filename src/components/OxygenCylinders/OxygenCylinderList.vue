@@ -2,12 +2,15 @@
   <div>
     <template v-if="loading === true">
       <div class="text-center">
-        <v-progress-circular indeterminate color="red"></v-progress-circular>
+        <v-progress-circular indeterminate color="blue"></v-progress-circular>
       </div>
     </template>
     <template v-else-if="bedsList.length > 0">
-      <template v-for="(bed, index) in bedsList">
-        <bed-list-item :key="'list-item' + index" :bed="bed"></bed-list-item>
+      <template v-for="(oxygenCylinder, index) in bedsList">
+        <oxygen-cylinder-list-item
+          :key="'list-item' + index"
+          :oxygenCylinder="oxygenCylinder"
+        ></oxygen-cylinder-list-item>
         <br :key="'br' + index" />
       </template>
     </template>
@@ -25,21 +28,23 @@
 </template>
 
 <script>
-import BedListItem from "@/components/Beds/BedListItem";
+import OxygenCylinderListItem from "@/components/OxygenCylinders/OxygenCylinderListItem";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "BedsList",
+  name: "OxygenCylindersList",
   created() {
     this.loading = true;
     if (this.searchText === "")
-      this.$store.dispatch("bed/find").then(() => {
+      this.$store.dispatch("oxygenCylinder/find").then(() => {
         this.loading = false;
       });
     else {
-      this.$store.dispatch("bed/findByCity", this.searchText).then(() => {
-        this.loading = false;
-      });
+      this.$store
+        .dispatch("oxygenCylinder/findByCity", this.searchText)
+        .then(() => {
+          this.loading = false;
+        });
     }
   },
   data() {
@@ -49,12 +54,12 @@ export default {
   },
   computed: {
     ...mapGetters({
-      bedsList: "bed/list",
+      bedsList: "oxygenCylinder/list",
       searchText: "searchBar/searchText",
     }),
   },
   components: {
-    BedListItem,
+    OxygenCylinderListItem,
   },
 };
 </script>

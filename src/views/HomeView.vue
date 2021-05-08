@@ -1,7 +1,6 @@
 <template>
   <v-container>
     <resource-types></resource-types>
-    <beds-list></beds-list>
   </v-container>
 </template>
 
