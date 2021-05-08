@@ -1,4 +1,4 @@
-# vue-app
+# Get Covid Help
 
 ## Project setup
 ```

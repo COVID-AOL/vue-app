@@ -15,12 +15,14 @@ const routes = [
   {
     path: '/hospital-beds',
     name: 'HospitalBedsView',
-    component: HospitalBedsView
+    component: HospitalBedsView,
+    props: (route) => ({ hospitalBedsQuery: route.query })
   },
   {
     path: '/oxygen-cylinders',
     name: 'OxygenCylindersView',
-    component: OxygenCylindersView
+    component: OxygenCylindersView,
+    props: (route) => ({ oxygenCylindersQuery: route.query })
   },
   // {
   //   path: '/about',

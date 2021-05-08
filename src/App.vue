@@ -33,8 +33,11 @@ import Search from "@/components/Search";
 
 export default {
   name: "App",
+  created() {
+    this.$route.query;
+  },
   data: () => ({
-    //
+    queryInRoute: {},
   }),
   components: {
     Search,
@@ -42,7 +45,17 @@ export default {
   watch: {
     $route(to, from) {
       this.$store.dispatch("searchBar/changeSearchText", "");
+
+      if (this.$route.path.includes("/hospital-beds") === true)
+        this.$store.dispatch("changeSelectedResource", "bed");
+      else if (this.$route.path.includes("/oxygen-beds") === true)
+        this.$store.dispatch("changeSelectedResource", "oxygenCylinder");
     },
+  },
+  computed: {
+    ...mapGetters({
+      selectedResource: "selectedResource",
+    }),
   },
 };
 </script>
@@ -52,7 +65,7 @@ export default {
   cursor: pointer;
 }
 .spacer {
-  height: 60px;
+  height: 30px;
 }
 html {
   font-family: "Roboto", sans-serif;

@@ -1,6 +1,11 @@
 <template>
   <div>
-    <template v-if="bedsList.length > 0">
+    <template v-if="loading === true">
+      <div class="text-center">
+        <v-progress-circular indeterminate color="blue"></v-progress-circular>
+      </div>
+    </template>
+    <template v-else-if="bedsList.length > 0">
       <template v-for="(oxygenCylinder, index) in bedsList">
         <oxygen-cylinder-list-item
           :key="'list-item' + index"
@@ -28,9 +33,24 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "OxygenCylindersList",
-  async created() {
-    if (this.searchText === "") this.$store.dispatch("oxygenCylinder/find");
-    else this.$store.dispatch("oxygenCylinder/findByCity", this.searchText);
+  created() {
+    this.loading = true;
+    if (this.searchText === "")
+      this.$store.dispatch("oxygenCylinder/find").then(() => {
+        this.loading = false;
+      });
+    else {
+      this.$store
+        .dispatch("oxygenCylinder/findByCity", this.searchText)
+        .then(() => {
+          this.loading = false;
+        });
+    }
+  },
+  data() {
+    return {
+      loading: null,
+    };
   },
   computed: {
     ...mapGetters({

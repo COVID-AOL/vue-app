@@ -1,6 +1,11 @@
 <template>
   <div>
-    <template v-if="bedsList.length > 0">
+    <template v-if="loading === true">
+      <div class="text-center">
+        <v-progress-circular indeterminate color="red"></v-progress-circular>
+      </div>
+    </template>
+    <template v-else-if="bedsList.length > 0">
       <template v-for="(bed, index) in bedsList">
         <bed-list-item :key="'list-item' + index" :bed="bed"></bed-list-item>
         <br :key="'br' + index" />
@@ -25,9 +30,22 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "BedsList",
-  async created() {
-    if (this.searchText === "") this.$store.dispatch("bed/find");
-    else this.$store.dispatch("bed/findByCity", this.searchText);
+  created() {
+    this.loading = true;
+    if (this.searchText === "")
+      this.$store.dispatch("bed/find").then(() => {
+        this.loading = false;
+      });
+    else {
+      this.$store.dispatch("bed/findByCity", this.searchText).then(() => {
+        this.loading = false;
+      });
+    }
+  },
+  data() {
+    return {
+      loading: null,
+    };
   },
   computed: {
     ...mapGetters({
