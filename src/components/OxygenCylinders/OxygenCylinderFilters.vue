@@ -1,6 +1,6 @@
 <template>
   <div class="mb-10 text-center">
-    <div class="text-body-1 mb-2 text-uppercase text-grey">Filters</div>
+    <div class="text-body-1 mb-2 text-capitalize text-grey">Filters</div>
     <template v-for="(filter, index) in filters">
       <v-btn
         class="ma-2 text-capitalize"
@@ -21,22 +21,32 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "OxygenCylinderFilters",
+  created() {
+    let query = this.$route.query;
+
+    for (let key in query) {
+      this.filters.filter((f) => f.id === key)[0].active = true;
+    }
+  },
   data() {
     return {
       filters: [
         {
-          name: "refill",
-          q: { key: "refill", value: true },
+          id: "refill",
+          name: "Refill Available",
+          value: true,
           active: false,
         },
         {
-          name: "empty",
-          q: { key: "empty", value: true },
+          id: "empty",
+          name: "Empty",
+          value: true,
           active: false,
         },
         {
-          name: "filled",
-          q: { key: "filled", value: true },
+          id: "filled",
+          name: "Filled",
+          value: true,
           active: false,
         },
       ],
@@ -57,10 +67,10 @@ export default {
       handler(newValue, oldValue) {
         let query = {};
         newValue.forEach((element) => {
-          if (element.active === true) query[element.q.key] = element.q.value;
+          if (element.active === true) query[element.id] = element.value;
         });
 
-        this.$router.push({ query: query }).catch(() => {});
+        this.$router.push({ query: query });
       },
       deep: true,
     },

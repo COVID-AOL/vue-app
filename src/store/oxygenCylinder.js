@@ -23,8 +23,13 @@ const mutations = {
   findByCityError(state, err) { }
 }
 const actions = {
-  changeFilters({ commit }, newFilters) {
+  changeFilters({ commit, rootState, dispatch }, newFilters) {
     commit('changeFilterSuccess', newFilters)
+    if (rootState.searchBar.searchText !== '') {
+      dispatch('findByCity', rootState.searchBar.searchText)
+    } else {
+      dispatch('find')
+    }
   },
   findByCity({ commit }, city) {
     return globalAction({ commit }, 'findByCity', {

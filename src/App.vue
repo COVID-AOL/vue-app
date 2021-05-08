@@ -42,14 +42,24 @@ export default {
   components: {
     Search,
   },
+  created() {
+    this.checkResource(this.$route);
+  },
   watch: {
     $route(to, from) {
-      this.$store.dispatch("searchBar/changeSearchText", "");
+      this.checkResource(to);
+    },
+  },
+  methods: {
+    checkResource(routerObject) {
+      let resource;
 
-      if (this.$route.path.includes("/hospital-beds") === true)
-        this.$store.dispatch("changeSelectedResource", "bed");
-      else if (this.$route.path.includes("/oxygen-beds") === true)
-        this.$store.dispatch("changeSelectedResource", "oxygenCylinder");
+      if (routerObject.path.includes("/hospital-beds") === true)
+        resource = "bed";
+      else if (routerObject.path.includes("/oxygen-cylinders") === true)
+        resource = "oxygenCylinder";
+
+      this.$store.dispatch("changeSelectedResource", resource);
     },
   },
   computed: {

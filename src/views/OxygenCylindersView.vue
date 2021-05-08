@@ -18,6 +18,9 @@ export default {
       type: Object,
     },
   },
+  created() {
+    this.$store.dispatch("oxygenCylinder/changeFilters", this.$route.query);
+  },
   watch: {
     oxygenCylindersQuery(newValue, oldValue) {
       this.$store.dispatch("oxygenCylinder/changeFilters", newValue);
