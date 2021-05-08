@@ -1,9 +1,9 @@
 <template>
   <div class="my-5 text-center">
-    <div class="text-body-1 mb-2 text-uppercase text-grey">Filters</div>
+    <div class="text-body-1 mb-2 text-capitalize text-grey">Filters</div>
     <template v-for="(filter, index) in filters">
       <v-btn
-        class="ma-2"
+        class="ma-2 text-capitalize"
         :color="filter.active === true ? '' : ''"
         :outlined="filter.active !== true"
         @click="filter.active = !filter.active"
@@ -21,22 +21,34 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "BedFilters",
+  created() {
+    let query = this.$route.query;
+
+    for (let key in query) {
+      this.filters.filter((f) => f.id === key)[0].active = true;
+    }
+  },
+
   data() {
     return {
+      justCreated: false,
       filters: [
         {
+          id: "ventilator",
           name: "Ventilator",
-          q: { key: "ventilator", value: true },
+          value: true,
           active: false,
         },
         {
+          id: "icu",
           name: "ICU",
-          q: { key: "icu", value: true },
+          value: true,
           active: false,
         },
         {
+          id: "oxygen",
           name: "Oxygen",
-          q: { key: "oxygen", value: true },
+          value: true,
           active: false,
         },
       ],
@@ -52,7 +64,7 @@ export default {
       handler(newValue, oldValue) {
         let query = {};
         newValue.forEach((element) => {
-          if (element.active === true) query[element.q.key] = element.q.value;
+          if (element.active === true) query[element.id] = element.value;
         });
 
         this.$router.push({ query: query });

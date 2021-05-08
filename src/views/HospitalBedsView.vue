@@ -10,7 +10,6 @@
 import ResourceTypes from "@/components/ResourceTypes";
 import BedList from "@/components/Beds/BedList";
 import BedFilters from "@/components/Beds/BedFilters";
-import { mapGetters } from "vuex";
 
 export default {
   name: "HomeView",
@@ -20,17 +19,12 @@ export default {
     },
   },
   created() {
-    alert(`hospitalBedsQuery: \t${JSON.stringify(this.hospitalBedsQuery)}`);
+    this.$store.dispatch("bed/changeFilters", this.$route.query);
   },
   watch: {
     hospitalBedsQuery(newValue, oldValue) {
       this.$store.dispatch("bed/changeFilters", newValue);
     },
-  },
-  computed: {
-    ...mapGetters({
-      bedFilters: "bed/filters",
-    }),
   },
   components: {
     ResourceTypes,
