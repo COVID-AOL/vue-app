@@ -19,9 +19,6 @@ export default {
       type: Object,
     },
   },
-  created() {
-    alert(`hospitalBedsQuery: \t${JSON.stringify(this.hospitalBedsQuery)}`);
-  },
   watch: {
     hospitalBedsQuery(newValue, oldValue) {
       this.$store.dispatch("bed/changeFilters", newValue);
